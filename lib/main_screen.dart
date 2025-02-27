@@ -1,3 +1,4 @@
+import 'package:flame/events.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flame/game.dart';
@@ -73,7 +74,7 @@ class MainScreen extends StatelessWidget {
   }
 }
 
-class FarmGame extends FlameGame with HasTappables {
+class FarmGame extends FlameGame with TapCallbacks {
   bool _showShop = false;
   bool _showPlant = false;
   late TextComponent _moneyText;
@@ -359,8 +360,9 @@ class FarmGame extends FlameGame with HasTappables {
   }
 
   @override
-  void onTapDown(int pointerId, TapDownInfo event) {
-    final tapPosition = event.eventPosition.game;
+  void onTapDown(TapDownEvent event) {
+    int pointerId = event.pointerId;
+    final tapPosition = event.localPosition;
 
     if (_showShop) {
       if (tapPosition.x > size.x - 40 && tapPosition.y < 60) {
@@ -408,7 +410,7 @@ class FarmGame extends FlameGame with HasTappables {
       }
     }
 
-    super.onTapDown(pointerId, event);
+    super.onTapDown(event);
   }
 }
 
@@ -502,7 +504,7 @@ class PlotComponent extends PositionComponent {
   }
 }
 
-class ButtonComponent extends PositionComponent with Tappable {
+class ButtonComponent extends PositionComponent with TapCallbacks {
   final String text;
   final VoidCallback onPressed;
 
@@ -541,7 +543,7 @@ class ButtonComponent extends PositionComponent with Tappable {
   }
 
   @override
-  bool onTapDown(TapDownInfo event) {
+  bool onTapDown(TapDownEvent event) {
     onPressed();
     return true;
   }

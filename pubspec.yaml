@@ -32,9 +32,9 @@ dependencies:
     sdk: flutter
   cupertino_icons: ^1.0.2
   dio: ^5.8.0+1
-  flame: ^1.0.0
-  hive: ^2.0.0
-  hive_flutter: ^1.0.0
+  flame: ^1.25.0
+  hive: ^3.0.0-dev
+  hive_flutter: ^2.0.0-dev
   url_launcher: ^6.0.20
   fluttertoast: ^8.0.9
 

@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'api.dart';
 import 'main_screen.dart';
 
@@ -57,7 +59,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   fit: BoxFit.cover,
                 ),
               ),
-              const SizedBox(height: 20),
+             Container(height: 20),
               TextFormField(
                 controller: _usernameController,
                 decoration: const InputDecoration(labelText: '用户名'),
@@ -68,7 +70,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   return null;
                 },
               ),
-              const SizedBox(height: 20),
+              Container(height: 20),
               ElevatedButton(
                 onPressed: _login,
                 child: const Text('登录'),

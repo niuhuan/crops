@@ -27,7 +27,7 @@ class Crop {
 const List<Crop> crops = [
   Crop(
     level: 1,
-    name: '土豆',
+    name: '西瓜',
     seedPrice: 10,
     fruitsMin: 8,
     fruitsMax: 12,
@@ -35,11 +35,11 @@ const List<Crop> crops = [
     fruitExp: 4,
     stepHours: [1, 2, 3],
     stepEmojis: ['🌱', '🌱', '🎍'],
-    fruitEmoji: '🥔',
+    fruitEmoji: '🍉',
   ),
   Crop(
     level: 2,
-    name: '萝卜',
+    name: '香蕉',
     seedPrice: 20,
     fruitsMin: 10,
     fruitsMax: 15,
@@ -47,11 +47,11 @@ const List<Crop> crops = [
     fruitExp: 4,
     stepHours: [1, 2, 3],
     stepEmojis: ['🌱', '🎍', '🎍'],
-    fruitEmoji: '🥕',
+    fruitEmoji: '🍌',
   ),
   Crop(
     level: 3,
-    name: '花生',
+    name: '樱桃',
     seedPrice: 30,
     fruitsMin: 15,
     fruitsMax: 17,
@@ -59,7 +59,7 @@ const List<Crop> crops = [
     fruitExp: 4,
     stepHours: [1, 3, 4],
     stepEmojis: ['🌱', '🎍', '🌿'],
-    fruitEmoji: '🥜',
+    fruitEmoji: '🍒',
   ),
   Crop(
     level: 4,
