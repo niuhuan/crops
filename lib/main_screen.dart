@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flame/game.dart';
 import 'package:flame/components.dart';
 import 'package:flame/input.dart';
+import 'package:flame/sprite.dart';
 import 'api.dart';
 import 'crops.dart';
+import 'login_screen.dart';
+import 'like_screen.dart';
 
 class MainScreen extends StatelessWidget {
   const MainScreen({super.key});
@@ -13,6 +16,54 @@ class MainScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('农场游戏'),
+        actions: [
+          PopupMenuButton<String>(
+            onSelected: (value) async {
+              if (value == 'logout') {
+                await apiService.logout();
+                // ignore: use_build_context_synchronously
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => const LoginScreen()),
+                );
+              } else if (value == 'cheat') {
+                await apiService.cheat();
+                // Refresh the game state
+                (context as Element).reassemble();
+              } else if (value == 'like') {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const LikeScreen()),
+                );
+              }
+            },
+            itemBuilder: (BuildContext context) {
+              return [
+                const PopupMenuItem<String>(
+                  value: 'logout',
+                  child: ListTile(
+                    leading: Icon(Icons.logout),
+                    title: Text('登出'),
+                  ),
+                ),
+                const PopupMenuItem<String>(
+                  value: 'cheat',
+                  child: ListTile(
+                    leading: Icon(Icons.bug_report),
+                    title: Text('作弊'),
+                  ),
+                ),
+                const PopupMenuItem<String>(
+                  value: 'like',
+                  child: ListTile(
+                    leading: Icon(Icons.thumb_up),
+                    title: Text('点赞'),
+                  ),
+                ),
+              ];
+            },
+          ),
+        ],
       ),
       body: GameWidget(
         game: FarmGame(),
@@ -26,9 +77,7 @@ class FarmGame extends FlameGame with HasTappables {
   bool _showPlant = false;
   late TextComponent _moneyText;
   late TextComponent _experienceText;
-
-  @override
-  Color backgroundColor() => const Color(0xFF000000); // Black background
+  late SpriteComponent _background;
 
   @override
   Future<void> onLoad() async {
@@ -37,6 +86,11 @@ class FarmGame extends FlameGame with HasTappables {
     final double plotSize = size.x / 2 - margin * 1.5;
     final double startX = margin;
     final double startY = size.y / 2 - plotSize - margin / 2;
+
+    _background = SpriteComponent()
+      ..sprite = await loadSprite('bg.png')
+      ..size = size;
+    add(_background);
 
     _moneyText = TextComponent(
       text: '💰 ${apiService.getMoney()}',
@@ -185,7 +239,13 @@ class FarmGame extends FlameGame with HasTappables {
       final emojiPainter = TextPainter(
         text: TextSpan(
           text: crop.fruitEmoji,
-          style: const TextStyle(fontSize: 30),
+          style: const TextStyle(fontSize: 30, shadows: [
+            Shadow(
+              offset: Offset(2.0, 2.0),
+              blurRadius: 3.0,
+              color: Color.fromARGB(255, 0, 0, 0),
+            ),
+          ]),
         ),
         textDirection: TextDirection.ltr,
       );
@@ -247,7 +307,13 @@ class FarmGame extends FlameGame with HasTappables {
       final emojiPainter = TextPainter(
         text: TextSpan(
           text: crop.fruitEmoji,
-          style: const TextStyle(fontSize: 30),
+          style: const TextStyle(fontSize: 30, shadows: [
+            Shadow(
+              offset: Offset(2.0, 2.0),
+              blurRadius: 3.0,
+              color: Color.fromARGB(255, 0, 0, 0),
+            ),
+          ]),
         ),
         textDirection: TextDirection.ltr,
       );
@@ -337,8 +403,9 @@ class PlotComponent extends PositionComponent {
   @override
   void render(Canvas canvas) {
     super.render(canvas);
-    final paint = Paint()..color = const Color(0xFF00FF00); // Green color
-    canvas.drawRect(size.toRect(), paint);
+    final paint = Paint()..color = const Color(0xFF8B4513); // Dark brown color
+    final rrect = RRect.fromRectAndRadius(size.toRect(), const Radius.circular(10));
+    canvas.drawRRect(rrect, paint);
 
     if (cropState != null) {
       final cropId = cropState!['cropId'];
@@ -364,7 +431,13 @@ class PlotComponent extends PositionComponent {
       final textPainter = TextPainter(
         text: TextSpan(
           text: emoji,
-          style: const TextStyle(fontSize: 30),
+          style: const TextStyle(fontSize: 30, shadows: [
+            Shadow(
+              offset: Offset(2.0, 2.0),
+              blurRadius: 3.0,
+              color: Color.fromARGB(255, 0, 0, 0),
+            ),
+          ]),
         ),
         textDirection: TextDirection.ltr,
       );
@@ -421,7 +494,8 @@ class ButtonComponent extends PositionComponent with Tappable {
   void render(Canvas canvas) {
     super.render(canvas);
     final paint = Paint()..color = const Color(0xFF0000FF); // Blue color
-    canvas.drawRect(size.toRect(), paint);
+    final rrect = RRect.fromRectAndRadius(size.toRect(), const Radius.circular(10));
+    canvas.drawRRect(rrect, paint);
 
     final textPainter = TextPainter(
       text: TextSpan(

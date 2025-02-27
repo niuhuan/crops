@@ -31,23 +31,36 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    final logoSize = size.shortestSide / 3;
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Login'),
+        title: const Text('登录'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(15),
+              child: Image.asset(
+                'assets/applogo.png',
+                width: logoSize,
+                height: logoSize,
+                fit: BoxFit.cover,
+              ),
+            ),
+            const SizedBox(height: 20),
             TextField(
               controller: _usernameController,
-              decoration: const InputDecoration(labelText: 'Username'),
+              decoration: const InputDecoration(labelText: '用户名'),
             ),
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: _login,
-              child: const Text('Login'),
+              child: const Text('登录'),
             ),
           ],
         ),

@@ -40,6 +40,22 @@ class ApiService {
     return true;
   }
 
+  Future<void> logout() async {
+    await _box.delete('username');
+  }
+
+  Future<void> cheat() async {
+    for (int plotNumber = 1; plotNumber <= 4; plotNumber++) {
+      final cropState = getCropState(plotNumber);
+      if (cropState != null) {
+        final plantTime = DateTime.parse(cropState['plantTime']);
+        final newPlantTime = plantTime.subtract(const Duration(hours: 1));
+        cropState['plantTime'] = newPlantTime.toIso8601String();
+        await _box.put('plot_$plotNumber', cropState);
+      }
+    }
+  }
+
   String? getUsername() {
     return _box.get('username');
   }
