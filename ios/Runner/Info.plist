@@ -52,5 +52,12 @@
 		<string>http</string>
 		<string>https</string>
 	</array>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+	</dict>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>需要访问互联网以获取最新的游戏数据。</string>
 </dict>
 </plist>

@@ -259,7 +259,7 @@ class FarmGame extends FlameGame with HasTappables {
       final emojiPainter = TextPainter(
         text: TextSpan(
           text: crop.fruitEmoji,
-          style: const TextStyle(fontSize: 30, shadows: [
+          style: const TextStyle(fontSize: 30, fontFamily: 'EmojiOne', shadows: [
             Shadow(
               offset: Offset(2.0, 2.0),
               blurRadius: 3.0,
@@ -333,7 +333,7 @@ class FarmGame extends FlameGame with HasTappables {
       final emojiPainter = TextPainter(
         text: TextSpan(
           text: crop.fruitEmoji,
-          style: const TextStyle(fontSize: 30, shadows: [
+          style: const TextStyle(fontSize: 30, fontFamily: 'EmojiOne', shadows: [
             Shadow(
               offset: Offset(2.0, 2.0),
               blurRadius: 3.0,
@@ -457,7 +457,7 @@ class PlotComponent extends PositionComponent {
       final textPainter = TextPainter(
         text: TextSpan(
           text: emoji,
-          style: const TextStyle(fontSize: 30, shadows: [
+          style: const TextStyle(fontSize: 30, fontFamily: 'EmojiOne', shadows: [
             Shadow(
               offset: Offset(2.0, 2.0),
               blurRadius: 3.0,
