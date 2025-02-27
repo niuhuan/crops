@@ -101,19 +101,34 @@ class _LikeScreenState extends State<LikeScreen> {
               'username': _username,
               'orderNumber': _orderController.text.trim(),
             },
+            options: Options(responseType: ResponseType.plain),
           );
+          var msg = "";
+          switch (response.data.toString()) {
+            case "FAIL":
+              msg = "订单号无效";
+              break;
+            case "DUPLICATE":
+              msg = "订单号已经使用过";
+              break;
+            case "SUCCESS":
+              msg = "金币已经发放，请在游戏中查看";
+              break;
+            default:
+              msg = "未知错误 ${response.data.toString()}";
+          }
           Fluttertoast.showToast(
-            msg: response.data.toString(),
+            msg: msg,
             toastLength: Toast.LENGTH_LONG,
-            gravity: ToastGravity.BOTTOM,
-            timeInSecForIosWeb: 5,
+            gravity: ToastGravity.TOP,
+            timeInSecForIosWeb: 10, // Extend the display time to 10 seconds
           );
         } catch (e) {
           Fluttertoast.showToast(
             msg: '请求失败: $e',
             toastLength: Toast.LENGTH_LONG,
-            gravity: ToastGravity.BOTTOM,
-            timeInSecForIosWeb: 5,
+            gravity: ToastGravity.TOP,
+            timeInSecForIosWeb: 10, // Extend the display time to 10 seconds
           );
         }
       }

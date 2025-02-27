@@ -97,7 +97,7 @@ class FarmGame extends FlameGame with HasTappables {
       text: '💰 ${apiService.getMoney()}',
       position: Vector2(size.x - 150, 10),
       textRenderer: TextPaint(
-        style: const TextStyle(color: Colors.white, fontSize: 20),
+        style: const TextStyle(color: Colors.white, fontSize: 20, fontFamily: 'EmojiOne'),
       ),
     );
     add(_moneyText);
@@ -106,7 +106,7 @@ class FarmGame extends FlameGame with HasTappables {
       text: '⭐ ${apiService.getExperience()}',
       position: Vector2(size.x - 150, 40),
       textRenderer: TextPaint(
-        style: const TextStyle(color: Colors.white, fontSize: 20),
+        style: const TextStyle(color: Colors.white, fontSize: 20, fontFamily: 'EmojiOne'),
       ),
     );
     add(_experienceText);
@@ -234,7 +234,7 @@ class FarmGame extends FlameGame with HasTappables {
     final moneyPainter = TextPainter(
       text: TextSpan(
         text: '💰 ${apiService.getMoney()}',
-        style: const TextStyle(color: Colors.white, fontSize: 20),
+        style: const TextStyle(color: Colors.white, fontSize: 20, fontFamily: 'EmojiOne'),
       ),
       textDirection: TextDirection.ltr,
     );
