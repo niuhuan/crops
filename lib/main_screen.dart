@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flame/game.dart';
 import 'package:flame/components.dart';
@@ -211,7 +212,13 @@ class FarmGame extends FlameGame with HasTappables {
 
   void renderShop(Canvas canvas) {
     final seeds = apiService.getSeeds();
-    final paint = Paint()..color = const Color(0xFF000000).withOpacity(0.8);
+    late Color color;
+    if (kIsWeb) {
+      color = const Color(0xFF000000);
+    } else {
+      color = const Color(0xFF000000).withOpacity(0.8);
+    }
+    final paint = Paint()..color = color; // Solid black color
     canvas.drawRect(Rect.fromLTWH(0, 0, size.x, size.y), paint);
 
     final textPainter = TextPainter(
@@ -289,7 +296,13 @@ class FarmGame extends FlameGame with HasTappables {
 
   void renderPlant(Canvas canvas) {
     final seeds = apiService.getSeeds();
-    final paint = Paint()..color = const Color(0xFF000000).withOpacity(0.8);
+    late Color color;
+    if (kIsWeb) {
+      color = const Color(0xFF000000);
+    } else {
+      color = const Color(0xFF000000).withOpacity(0.8);
+    }
+    final paint = Paint()..color = color; // Solid black color
     canvas.drawRect(Rect.fromLTWH(0, 0, size.x, size.y), paint);
 
     final textPainter = TextPainter(
