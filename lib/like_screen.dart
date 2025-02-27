@@ -39,34 +39,42 @@ class _LikeScreenState extends State<LikeScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            if (_username != null) Text('用户名: $_username'),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                if (_username != null) Text('用户名: $_username'),
+                Container(
+                  margin: const EdgeInsets.only(left: 10),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    // Handle purchase link tap
+                  },
+                  child: const Text(
+                    '赞助',
+                    style: TextStyle(
+                      color: Colors.blue,
+                    ),
+                  ),
+                ),
+              ],
+            ),
             const SizedBox(height: 20),
             TextField(
               controller: _orderController,
               decoration: const InputDecoration(labelText: '订单号'),
             ),
             const SizedBox(height: 20),
-            GestureDetector(
-              onTap: () {
-                // Handle purchase link tap
-              },
-              child: const Text(
-                '购买',
-                style: TextStyle(
-                  color: Colors.blue,
-                  decoration: TextDecoration.underline,
-                ),
-              ),
-            ),
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
                 // Handle confirm button press
               },
-              child: const Text('确定'),
+              child: const Text('使用订单号获取金币'),
             ),
             const SizedBox(height: 20),
-            Text('感谢您的点赞！\n版本: $_version'),
+            Text('注意！！请核实您的账号是否正确，每个订单号只能使用一次。\n有任何疑问请在下载地址和游戏作者取得联系, 赞助平台不会做任何回复，在赞助平台私聊会被拉黑。\n提前感谢您的点赞！版本: $_version'),
           ],
         ),
       ),

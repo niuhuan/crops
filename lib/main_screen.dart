@@ -77,20 +77,20 @@ class FarmGame extends FlameGame with HasTappables {
   bool _showPlant = false;
   late TextComponent _moneyText;
   late TextComponent _experienceText;
-  late SpriteComponent _background;
+  late Sprite _backgroundSprite;
+
+  @override
+  Color backgroundColor() => const Color(0xFF000000); // Black background
 
   @override
   Future<void> onLoad() async {
     super.onLoad();
+    _backgroundSprite = await loadSprite('bg.png');
+
     final double margin = 20.0;
     final double plotSize = size.x / 2 - margin * 1.5;
     final double startX = margin;
     final double startY = size.y / 2 - plotSize - margin / 2;
-
-    _background = SpriteComponent()
-      ..sprite = await loadSprite('bg.png')
-      ..size = size;
-    add(_background);
 
     _moneyText = TextComponent(
       text: '💰 ${apiService.getMoney()}',
@@ -184,7 +184,20 @@ class FarmGame extends FlameGame with HasTappables {
 
   @override
   void render(Canvas canvas) {
+
+    // Draw the repeating background
+    final bgSize = _backgroundSprite.srcSize;
+    for (double x = 0; x < size.x; x += bgSize.x) {
+      for (double y = 0; y < size.y; y += bgSize.y) {
+        _backgroundSprite.render(
+          canvas,
+          position: Vector2(x, y),
+          size: bgSize,
+        );
+      }
+    }
     super.render(canvas);
+
     if (_showShop) {
       renderShop(canvas);
     }
