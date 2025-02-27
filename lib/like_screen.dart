@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'api.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class LikeScreen extends StatefulWidget {
   const LikeScreen({super.key});
@@ -26,6 +27,41 @@ class _LikeScreenState extends State<LikeScreen> {
     setState(() {
       _version = version;
     });
+  }
+
+  Future<void> _showConfirmationDialog() async {
+    final result = await showDialog<bool>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('确认'),
+          content: const Text('已经耐心读完注意事项并严格遵守'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(false);
+              },
+              child: const Text('取消'),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(true);
+              },
+              child: const Text('确定'),
+            ),
+          ],
+        );
+      },
+    );
+
+    if (result == true) {
+      const url = 'https://ifdian.net/a/ImpactMaster';
+      if (await canLaunch(url)) {
+        await launch(url);
+      } else {
+        throw 'Could not launch $url';
+      }
+    }
   }
 
   @override
@@ -61,9 +97,7 @@ class _LikeScreenState extends State<LikeScreen> {
                   margin: const EdgeInsets.only(left: 10),
                 ),
                 GestureDetector(
-                  onTap: () {
-                    // Handle purchase link tap
-                  },
+                  onTap: _showConfirmationDialog,
                   child: const Text(
                     '赞助',
                     style: TextStyle(
@@ -87,7 +121,7 @@ class _LikeScreenState extends State<LikeScreen> {
               child: const Text('使用订单号获取金币'),
             ),
             const SizedBox(height: 20),
-            Text('注意！！请核实您的账号是否正确，每个订单号只能使用一次。\n有任何疑问请在下载地址和游戏作者取得联系, 赞助平台不会做任何回复，在赞助平台私聊会被拉黑。\n提前感谢您的点赞！版本: $_version'),
+            Text('注意！！请核实您的账号是否正确，每个订单号只能使用一次。\n取得金币后其他游戏也会同步发电，需要手动点击曾经发过电同步\n请确认您已经加入群聊，有任何疑问请在下载地址和游戏作者取得联系, 赞助时不要捎带任何话，不要私聊，赞助平台不会做任何回复，如不遵守会被拉黑。\n提前感谢您的点赞！版本: $_version'),
           ],
         ),
       ),
