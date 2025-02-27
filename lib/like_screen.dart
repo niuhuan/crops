@@ -30,6 +30,9 @@ class _LikeScreenState extends State<LikeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    final logoSize = size.shortestSide / 4;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('用爱发电'),
@@ -39,6 +42,16 @@ class _LikeScreenState extends State<LikeScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(15),
+              child: Image.asset(
+                'assets/applogo.png',
+                width: logoSize,
+                height: logoSize,
+                fit: BoxFit.cover,
+              ),
+            ),
+            const SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -55,6 +68,7 @@ class _LikeScreenState extends State<LikeScreen> {
                     '赞助',
                     style: TextStyle(
                       color: Colors.blue,
+                      decoration: TextDecoration.underline,
                     ),
                   ),
                 ),
@@ -65,7 +79,6 @@ class _LikeScreenState extends State<LikeScreen> {
               controller: _orderController,
               decoration: const InputDecoration(labelText: '订单号'),
             ),
-            const SizedBox(height: 20),
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
