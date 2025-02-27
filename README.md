@@ -1,16 +1,48 @@
-# crops
+# 农场游戏
 
-A new Flutter project.
+欢迎来到农场游戏！这是一个基于 Flutter 的农场模拟游戏，您可以在这里种植作物、收获果实并赚取金币和经验。
 
-## Getting Started
+## 游戏玩法
 
-This project is a starting point for a Flutter application.
+1. **登录**：使用您的用户名登录游戏。
+2. **种植作物**：选择种子并在农田中种植作物。
+3. **收获果实**：等待作物成熟后，收获果实并获得金币和经验。
+4. **商店**：在商店中购买种子和其他物品。
 
-A few resources to get you started if this is your first Flutter project:
+## 功能
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- 多种作物可供选择，每种作物都有不同的生长时间和收益。
+- 通过收获作物赚取金币和经验，提升您的农场等级。
+- 在商店中购买种子和其他物品，扩展您的农场。
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## 运行项目
+
+1. 克隆仓库：
+    ```bash
+    git clone https://github.com/niuhuan/crops.git
+    cd crops
+    ```
+
+2. 安装依赖：
+    ```bash
+    flutter pub get
+    ```
+
+3. 运行项目：
+    ```bash
+    flutter run
+    ```
+
+## 在线游玩
+
+您可以通过以下链接在线游玩农场游戏：
+
+[农场游戏 - GitHub Pages](https://niuhuan.github.io/crops/)
+
+## 贡献
+
+欢迎对本项目进行贡献！如果您有任何建议或发现了问题，请提交 Issue 或 Pull Request。
+
+## 许可证
+
+本项目采用 MIT 许可证，详情请参阅 [LICENSE](LICENSE) 文件。
