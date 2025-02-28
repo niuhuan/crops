@@ -214,6 +214,7 @@ class FarmGame extends FlameGame with TapCallbacks {
         );
       }
     }
+
     super.render(canvas);
 
     if (_showShop) {
@@ -230,7 +231,7 @@ class FarmGame extends FlameGame with TapCallbacks {
   void renderShop(Canvas canvas) {
     final seeds = apiService.getSeeds();
     late Color color;
-    color = const Color(0xFF000000).withOpacity(0.8);
+    color = const Color(0xFF000000).withOpacity(0.7);
     final paint = Paint()..color = color; // Solid black color
     canvas.drawRect(Rect.fromLTWH(0, 0, size.x, size.y), paint);
 
@@ -321,7 +322,7 @@ class FarmGame extends FlameGame with TapCallbacks {
   void renderPlant(Canvas canvas) {
     final seeds = apiService.getSeeds();
     late Color color;
-    color = const Color(0xFF000000).withOpacity(0.8);
+    color = const Color(0xFF000000).withOpacity(0.7);
     final paint = Paint()..color = color; // Solid black color
     canvas.drawRect(Rect.fromLTWH(0, 0, size.x, size.y), paint);
 
