@@ -1,4 +1,3 @@
-import 'package:dio/dio.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'dart:math';
 
@@ -7,7 +6,6 @@ import 'crops.dart';
 final ApiService apiService = ApiService._privateConstructor();
 
 late Box _box;
-final Dio _dio = Dio();
 
 Future<void> initHive() async {
   await Hive.initFlutter();

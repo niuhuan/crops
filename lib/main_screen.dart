@@ -94,20 +94,37 @@ class FarmGame extends FlameGame with TapCallbacks {
     final double startX = margin;
     final double startY = size.y / 2 - plotSize - margin / 2;
 
+    add(TextComponent(
+        text: '💰',
+        position: Vector2(size.x - 150, 10),
+        textRenderer: TextPaint(
+          style: const TextStyle(
+              color: Colors.white, fontSize: 20, fontFamily: 'EmojiOne'),
+        )));
     _moneyText = TextComponent(
-      text: '💰 ${apiService.getMoney()}',
-      position: Vector2(size.x - 150, 10),
+      text: '${apiService.getMoney()}',
+      position: Vector2(size.x - 130, 10),
       textRenderer: TextPaint(
-        style: const TextStyle(color: Colors.white, fontSize: 20, fontFamily: 'EmojiOne'),
+        style: const TextStyle(
+            color: Colors.white, fontSize: 20),
       ),
     );
     add(_moneyText);
 
-    _experienceText = TextComponent(
-      text: '⭐ ${apiService.getExperience()}',
+    add(TextComponent(
+      text: '⭐',
       position: Vector2(size.x - 150, 40),
       textRenderer: TextPaint(
-        style: const TextStyle(color: Colors.white, fontSize: 20, fontFamily: 'EmojiOne'),
+        style: const TextStyle(
+            color: Colors.white, fontSize: 20, fontFamily: 'EmojiOne'),
+      ),
+    ));
+    _experienceText = TextComponent(
+      text: '${apiService.getExperience()}',
+      position: Vector2(size.x - 130, 40),
+      textRenderer: TextPaint(
+        style: const TextStyle(
+            color: Colors.white, fontSize: 20),
       ),
     );
     add(_experienceText);
@@ -172,8 +189,8 @@ class FarmGame extends FlameGame with TapCallbacks {
       text: '收获',
       onPressed: () async {
         await apiService.harvestCrops();
-        _moneyText.text = '💰 ${apiService.getMoney()}';
-        _experienceText.text = '⭐ ${apiService.getExperience()}';
+        _moneyText.text = '${apiService.getMoney()}';
+        _experienceText.text = '${apiService.getExperience()}';
 
         for (final component in children) {
           if (component is PlotComponent) {
@@ -186,7 +203,6 @@ class FarmGame extends FlameGame with TapCallbacks {
 
   @override
   void render(Canvas canvas) {
-
     // Draw the repeating background
     final bgSize = _backgroundSprite.srcSize;
     for (double x = 0; x < size.x; x += bgSize.x) {
@@ -207,18 +223,14 @@ class FarmGame extends FlameGame with TapCallbacks {
       renderPlant(canvas);
     }
 
-    _moneyText.position = Vector2(size.x - 150, 10);
-    _experienceText.position = Vector2(size.x - 150, 40);
+    _moneyText.position = Vector2(size.x - 130, 10);
+    _experienceText.position = Vector2(size.x - 130, 40);
   }
 
   void renderShop(Canvas canvas) {
     final seeds = apiService.getSeeds();
     late Color color;
-    if (kIsWeb) {
-      color = const Color(0xFF000000);
-    } else {
-      color = const Color(0xFF000000).withOpacity(0.8);
-    }
+    color = const Color(0xFF000000).withOpacity(0.8);
     final paint = Paint()..color = color; // Solid black color
     canvas.drawRect(Rect.fromLTWH(0, 0, size.x, size.y), paint);
 
@@ -232,15 +244,25 @@ class FarmGame extends FlameGame with TapCallbacks {
     textPainter.layout();
     textPainter.paint(canvas, Offset(size.x / 2 - textPainter.width / 2, 20));
 
-    final moneyPainter = TextPainter(
-      text: TextSpan(
-        text: '💰 ${apiService.getMoney()}',
-        style: const TextStyle(color: Colors.white, fontSize: 20, fontFamily: 'EmojiOne'),
+    var moneyPainter = TextPainter(
+      text: const TextSpan(
+        text: '💰',
+        style: TextStyle(
+            color: Colors.white, fontSize: 20, fontFamily: 'EmojiOne'),
       ),
       textDirection: TextDirection.ltr,
     );
     moneyPainter.layout();
     moneyPainter.paint(canvas, Offset(10, 20));
+    moneyPainter = TextPainter(
+      text: TextSpan(
+        text: '${apiService.getMoney()}',
+        style: const TextStyle(color: Colors.white, fontSize: 20),
+      ),
+      textDirection: TextDirection.ltr,
+    );
+    moneyPainter.layout();
+    moneyPainter.paint(canvas, Offset(10, 30));
 
     final closePainter = TextPainter(
       text: const TextSpan(
@@ -260,7 +282,8 @@ class FarmGame extends FlameGame with TapCallbacks {
       final emojiPainter = TextPainter(
         text: TextSpan(
           text: crop.fruitEmoji,
-          style: const TextStyle(fontSize: 30, fontFamily: 'EmojiOne', shadows: [
+          style:
+              const TextStyle(fontSize: 30, fontFamily: 'EmojiOne', shadows: [
             Shadow(
               offset: Offset(2.0, 2.0),
               blurRadius: 3.0,
@@ -298,11 +321,7 @@ class FarmGame extends FlameGame with TapCallbacks {
   void renderPlant(Canvas canvas) {
     final seeds = apiService.getSeeds();
     late Color color;
-    if (kIsWeb) {
-      color = const Color(0xFF000000);
-    } else {
-      color = const Color(0xFF000000).withOpacity(0.8);
-    }
+    color = const Color(0xFF000000).withOpacity(0.8);
     final paint = Paint()..color = color; // Solid black color
     canvas.drawRect(Rect.fromLTWH(0, 0, size.x, size.y), paint);
 
@@ -334,7 +353,8 @@ class FarmGame extends FlameGame with TapCallbacks {
       final emojiPainter = TextPainter(
         text: TextSpan(
           text: crop.fruitEmoji,
-          style: const TextStyle(fontSize: 30, fontFamily: 'EmojiOne', shadows: [
+          style:
+              const TextStyle(fontSize: 30, fontFamily: 'EmojiOne', shadows: [
             Shadow(
               offset: Offset(2.0, 2.0),
               blurRadius: 3.0,
@@ -374,9 +394,12 @@ class FarmGame extends FlameGame with TapCallbacks {
       for (int i = 0; i < crops.length; i++) {
         final x = (i % 3) * 100 + 50;
         final y = (i ~/ 3) * 100 + 100;
-        if (tapPosition.x > x && tapPosition.x < x + 100 && tapPosition.y > y && tapPosition.y < y + 100) {
+        if (tapPosition.x > x &&
+            tapPosition.x < x + 100 &&
+            tapPosition.y > y &&
+            tapPosition.y < y + 100) {
           apiService.buySeed(crops[i].level, crops[i].seedPrice);
-          _moneyText.text = '💰 ${apiService.getMoney()}';
+          _moneyText.text = '${apiService.getMoney()}';
           return;
         }
       }
@@ -392,13 +415,18 @@ class FarmGame extends FlameGame with TapCallbacks {
       for (int i = 0; i < crops.length; i++) {
         final x = (i % 3) * 100 + 50;
         final y = (i ~/ 3) * 100 + 100;
-        if (tapPosition.x > x && tapPosition.x < x + 100 && tapPosition.y > y && tapPosition.y < y + 100) {
+        if (tapPosition.x > x &&
+            tapPosition.x < x + 100 &&
+            tapPosition.y > y &&
+            tapPosition.y < y + 100) {
           final seeds = apiService.getSeeds();
           if ((seeds[crops[i].level] ?? 0) > 0) {
             for (final component in children) {
               if (component is PlotComponent && component.cropState == null) {
-                apiService.plantCrop(component.plotNumber, crops[i].level, DateTime.now());
-                component.cropState = apiService.getCropState(component.plotNumber);
+                apiService.plantCrop(
+                    component.plotNumber, crops[i].level, DateTime.now());
+                component.cropState =
+                    apiService.getCropState(component.plotNumber);
                 seeds[crops[i].level] = seeds[crops[i].level]! - 1;
                 apiService.setSeeds(seeds);
                 break;
@@ -432,7 +460,8 @@ class PlotComponent extends PositionComponent {
   void render(Canvas canvas) {
     super.render(canvas);
     final paint = Paint()..color = const Color(0xFF8B4513); // Dark brown color
-    final rrect = RRect.fromRectAndRadius(size.toRect(), const Radius.circular(10));
+    final rrect =
+        RRect.fromRectAndRadius(size.toRect(), const Radius.circular(10));
     canvas.drawRRect(rrect, paint);
 
     if (cropState != null) {
@@ -442,24 +471,22 @@ class PlotComponent extends PositionComponent {
       final elapsedTime = DateTime.now().difference(plantTime);
 
       String emoji;
-      if (elapsedTime.inHours >= crop.stepHours[2]
-      + crop.stepHours[1] + crop.stepHours[0]) { 
+      if (elapsedTime.inHours >=
+          crop.stepHours[2] + crop.stepHours[1] + crop.stepHours[0]) {
         emoji = crop.fruitEmoji;
-      }
-      else if (elapsedTime.inHours >= crop.stepHours[2] + crop.stepHours[1]) {
+      } else if (elapsedTime.inHours >= crop.stepHours[2] + crop.stepHours[1]) {
         emoji = crop.stepEmojis[2];
-      }
-      else if (elapsedTime.inMinutes >= crop.stepHours[2]) {
+      } else if (elapsedTime.inMinutes >= crop.stepHours[2]) {
         emoji = crop.stepEmojis[1];
-      }
-       else {
+      } else {
         emoji = crop.stepEmojis[0];
       }
 
       final textPainter = TextPainter(
         text: TextSpan(
           text: emoji,
-          style: const TextStyle(fontSize: 30, fontFamily: 'EmojiOne', shadows: [
+          style:
+              const TextStyle(fontSize: 30, fontFamily: 'EmojiOne', shadows: [
             Shadow(
               offset: Offset(2.0, 2.0),
               blurRadius: 3.0,
@@ -522,7 +549,8 @@ class ButtonComponent extends PositionComponent with TapCallbacks {
   void render(Canvas canvas) {
     super.render(canvas);
     final paint = Paint()..color = const Color(0xFF0000FF); // Blue color
-    final rrect = RRect.fromRectAndRadius(size.toRect(), const Radius.circular(10));
+    final rrect =
+        RRect.fromRectAndRadius(size.toRect(), const Radius.circular(10));
     canvas.drawRRect(rrect, paint);
 
     final textPainter = TextPainter(
