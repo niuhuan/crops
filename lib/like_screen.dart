@@ -167,12 +167,32 @@ class _LikeScreenState extends State<LikeScreen> {
                 children: [
                   if (_username != null) Text('用户名: $_username'),
                   Container(
-                    margin: const EdgeInsets.only(left: 10),
+                    margin: const EdgeInsets.only(left: 20),
                   ),
                   GestureDetector(
                     onTap: _showConfirmationDialog,
                     child: const Text(
                       '赞助',
+                      style: TextStyle(
+                        color: Colors.blue,
+                        decoration: TextDecoration.underline,
+                      ),
+                    ),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.only(left: 20),
+                  ),
+                  GestureDetector(
+                    onTap: () async {
+                      const url = "https://github.com/niuhuan/crops/releases";
+                      if (await canLaunch(url)) {
+                        await launch(url);
+                      } else {
+                        throw 'Could not launch $url';
+                      }
+                    },
+                    child: const Text(
+                      '加入组群、联系我',
                       style: TextStyle(
                         color: Colors.blue,
                         decoration: TextDecoration.underline,
